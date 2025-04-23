@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 from pathlib import Path
 
-from segmentation.segment_image import load_sam_model, segment_image, extract_region_crops
+from segmentation.segment_image import load_sam_model, run_sam_on_image, run_sam_with_points, run_sam_with_box, extract_region_crops
 from segmentation.visualize_regions import show_region_crops
 
 if __name__ == "__main__":

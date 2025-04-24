@@ -11,7 +11,7 @@ if __name__ == "__main__":
     image_np = np.array(image)
 
     model = load_sam_model()
-    masks = segment_image(model, image_np)
+    masks = run_sam_on_image(model, image_np)
     region_crops = extract_region_crops(image_np, masks)
     #
     show_region_crops(region_crops)

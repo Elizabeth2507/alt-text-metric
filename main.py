@@ -10,8 +10,8 @@ if __name__ == "__main__":
     image = Image.open(image_path).convert("RGB").resize((1024, 1024))
     image_np = np.array(image)
 
-    # model = load_sam_model()
-    # masks = segment_image(model, image_np)
-    # region_crops = extract_region_crops(image_np, masks)
+    model = load_sam_model()
+    masks = segment_image(model, image_np)
+    region_crops = extract_region_crops(image_np, masks)
     #
-    # show_region_crops(region_crops)
+    show_region_crops(region_crops)

@@ -9,7 +9,7 @@ from efficientvit.models.efficientvit.sam import (
 from efficientvit.models.utils import build_kwargs_from_config
 
 
-def load_sam_model(model_name="efficientvit_sam_l2", pretrained=True):
+def load_sam_model(model_name="efficientvit-sam-l2", pretrained=True):
     model = create_efficientvit_sam_model(model_name, pretrained=pretrained)
     model.eval()
     return model

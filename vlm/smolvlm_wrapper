@@ -1,0 +1,21 @@
+import torch
+from transformers import AutoProcessor, AutoModelForImageTextToText
+from PIL import Image
+
+class SmolVLMEmbedder:
+    def __init__(self, model_path="HuggingFaceTB/SmolVLM2-500M-Video-Instruct", device=None):
+        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        self.processor = AutoProcessor.from_pretrained(model_path)
+        self.model = AutoModelForImageTextToText.from_pretrained(
+            model_path, torch_dtype=torch.bfloat16
+        ).to(self.device)
+
+    def encode_image(self, image: Image.Image):
+        inputs = self.processor(images=image, return_tensors="pt").to(self.device, torch.bfloat16)
+        vision_embeds = self.model.vision_model(**inputs).last_hidden_state
+        return vision_embeds.squeeze(0).cpu()  # (tokens, dim)
+
+    def encode_text(self, text: str):
+        inputs = self.processor(text=text, return_tensors="pt").to(self.device)
+        text_embeds = self.model.language_model.get_input_embeddings()(inputs.input_ids)
+        return text_embeds.squeeze(0).cpu()

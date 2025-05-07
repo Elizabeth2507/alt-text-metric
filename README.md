@@ -39,3 +39,7 @@ Triton is a deep learning compiler designed for GPUs. It will install even if yo
 ```aiignore
 pip install triton
 ```
+
+```
+export PYTHONPATH=./efficientvit
+```

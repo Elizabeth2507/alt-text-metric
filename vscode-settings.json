@@ -1,0 +1,13 @@
+{
+    "files.autoSave": "afterDelay",
+    "extensions.autoUpdate": false,
+    "remote.SSH.remotePlatform": {
+      "ext-slurm": "linux"
+    },
+    "remote.SSH.serverInstallPath": {
+      "ext-slurm": "/mnt/beegfs/home/olamisan/.vscode-server"
+    },
+    "remote.SSH.connectTimeout": 60,
+    "git.autofetch": true
+  }
+  

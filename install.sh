@@ -37,10 +37,23 @@ cd "$project_root/efficientvit"
 pip install -r requirements.txt
 pip install onnx onnxsim
 pip install triton
+pip install sentencepiece
+pip install python-dotenv
 
 # for smolvlm
 pip install num2words
 pip install hf_xet
+
+#for Grounding DINO
+# https://github.com/IDEA-Research/GroundingDINO/releases
+# wget https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth
+# download grounding dino repository
+pip install transformers accelerate
+pip install opencv-python pillow
+# Semantic Roles Laibling (SRL)
+pip install frame-semantic-transformer
+pip install spacy
+python -m spacy download en_core_web_sm
 
 echo -e "\nInstallation complete!"
 echo "To activate your environment again:"

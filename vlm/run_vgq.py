@@ -32,38 +32,38 @@ def main():
     # ================================
     # 🔹 USAGE 2: Region + [CLS] context from full image
     # ================================
-    # print("\n=== Matching using REGION + CLS GLOBAL CONTEXT ===")
-    # scorer_with_cls = VGQScorer(embedder, use_cls_context=True)
+    print("\n=== Matching using REGION + CLS GLOBAL CONTEXT ===")
+    scorer_with_cls = VGQScorer(embedder, use_cls_context=True)
 
-    # # Get fused embeddings
-    # region_embeds_with_cls = scorer_with_cls.encode_regions(region_crops, full_image=full_image)
+    # Get fused embeddings
+    region_embeds_with_cls = scorer_with_cls.encode_regions(region_crops, full_image=full_image)
 
-    # # Token-to-region matching with CLS (cosine)
-    # matches_with_cls = scorer_with_cls.get_token_region_matches(
-    #     text=alt_text,
-    #     region_crops=region_crops,
-    #     full_image=full_image  
-    # )
-
-    # for match in matches_with_cls:
-    #     print(f"{match['token']:>12} → Region {match['region_id']} (score={match['score']:.3f})  Match? {match['matched']}")
-
-    from vgq_decoder_probe import get_decoder_attention
-
-    print("\n=== Decoder Probing: Attention-based Token–Region Alignment ===")
-
-    tokens, attn_map = get_decoder_attention(
-        model=embedder.model,
-        processor=embedder.processor,
-        image=full_image,
-        text=alt_text
+    # Token-to-region matching with CLS (cosine)
+    matches_with_cls = scorer_with_cls.get_token_region_matches(
+        text=alt_text,
+        region_crops=region_crops,
+        full_image=full_image  
     )
 
-    # If you have 10 regions (from SAM), map 196 image patches to 10 regions (e.g., avg over patch-to-region map)
-    for i, token in enumerate(tokens):
-        patch_attn = attn_map[i]  # (num_patches,)
-        top_patch = patch_attn.argmax().item()
-        print(f"{token:>12} → Top-attended patch: {top_patch}  Attention score: {patch_attn[top_patch]:.3f}")
+    for match in matches_with_cls:
+        print(f"{match['token']:>12} → Region {match['region_id']} (score={match['score']:.3f})  Match? {match['matched']}")
+
+#     from vgq_decoder_probe import get_decoder_attention
+
+#     print("\n=== Decoder Probing: Attention-based Token–Region Alignment ===")
+
+#     tokens, attn_map = get_decoder_attention(
+#         model=embedder.model,
+#         processor=embedder.processor,
+#         image=full_image,
+#         text=alt_text
+#     )
+
+#     # If you have 10 regions (from SAM), map 196 image patches to 10 regions (e.g., avg over patch-to-region map)
+#     for i, token in enumerate(tokens):
+#         patch_attn = attn_map[i]  # (num_patches,)
+#         top_patch = patch_attn.argmax().item()
+#         print(f"{token:>12} → Top-attended patch: {top_patch}  Attention score: {patch_attn[top_patch]:.3f}")
 
 
 

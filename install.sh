@@ -54,6 +54,7 @@ pip install opencv-python pillow
 pip install frame-semantic-transformer
 pip install spacy
 python -m spacy download en_core_web_sm
+pip install seaborn
 
 echo -e "\nInstallation complete!"
 echo "To activate your environment again:"
